@@ -166,7 +166,7 @@ public class Bg extends JPanel {
         betterBrush.setColor(Color.WHITE);
         betterBrush.drawString("Press 'A' to change song.", (screenMid - 70), 150);
         betterBrush.drawString("Now Playing:", (screenMid - 70), 200);
-        betterBrush.drawString(main.getSong(), (screenMid - 70), 210);
+        // <song> betterBrush.drawString(main.getSong(), (screenMid - 70), 210);
         }
     }
     
