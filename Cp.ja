@@ -1,0 +1,60 @@
+/*
+ * Secondary panel to hold score and upcoming block
+ */
+// Imports
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Graphics;
+import javax.swing.JPanel;
+public class Cp extends JPanel {
+    private int _block =  20;
+    private int _num = 5;
+    private int midPanelX = 130;
+    private int midPanelY = 60;
+    private int _grid = 100;
+    
+
+    private Main main;
+    public Cp(Main main) {
+        this.main = main;
+        
+        setPreferredSize(new Dimension(230, 120));// sets panel size
+        setBackground(Color.BLACK); // color -> black
+    }
+    
+    private void build(PieceFactory type, int x, int y, Graphics aBrush) {
+        aBrush.setColor(type.getFillColor()); // gets the randomized jor from piecefactory piece [setColor - > getFillColor]
+        aBrush.fillRect(x, y, _block, _block);
+
+    }
+    
+    public void paintComponent(Graphics aBrush) {
+        super.paintComponent(aBrush);
+        java.awt.Graphics2D betterBrush = (java.awt.Graphics2D) aBrush;
+        
+        aBrush.setColor(Color.WHITE);
+        aBrush.drawString("Score: " + main.getScore(), 0, 10); // I put this into the paintComp, so everytime repaint() is called score is updated
+        aBrush.setColor(Color.BLACK);
+        aBrush.drawRect(30, -40, 200, 200);
+        PieceFactory type = main.getNextTile();
+
+        if(main.gameEnded()== false && type != null) {
+            int height = type.getHeight();
+            int width = type.getWidth();
+
+            int startX = (midPanelX - (height * _block / 2));
+            int startY = (midPanelY - (width * _block / 2));
+            int top = type.screenMaxY();
+            int left = type.screenMinX();
+
+            for(int i = 0; i < height; i++) {
+                for(int j = 0; j < height; j++) {
+                    if(type.moveOkay(j, i, 0)) {
+                        build(type, startX + ((j - left) * _block), startY + ((i - top) * _block), aBrush);
+                    }
+                }
+            }
+        }
+    }    
+}
