@@ -3,6 +3,12 @@ Tetris
 
 Tetris game written in java (OOP)
 
+In order to run this game, find a couple music|audio files and name them A,B,C.....,G,H 
+These will be placed in an array inside of the main panel 
+
+ // After, ctrl + f and look for <song> and uncomment those lines (this will activate the in-game music)
+	
+
 
 /*
  *                                               
